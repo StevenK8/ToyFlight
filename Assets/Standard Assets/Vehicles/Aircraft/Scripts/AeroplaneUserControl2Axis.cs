@@ -37,12 +37,13 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
             // bool airBrakes = InputTracking.GetComponent(XRNode.LeftHand).GetPress(triggerButton);
 
             bool airBrakes = false;
-            var rightHandDevices = new List<UnityEngine.XR.InputDevice>();
-            UnityEngine.XR.InputDevices.GetDevicesAtXRNode(UnityEngine.XR.XRNode.LeftHand, rightHandDevices);
+            var leftHandDevices = new List<UnityEngine.XR.InputDevice>();
+            UnityEngine.XR.InputDevices.GetDevicesAtXRNode(UnityEngine.XR.XRNode.LeftHand, leftHandDevices);
 
-            if(rightHandDevices.Count == 1)
+            if(leftHandDevices.Count == 1)
             {
-                UnityEngine.XR.InputDevice device = rightHandDevices[0];
+                UnityEngine.XR.InputDevice device = leftHandDevices[0];
+
                 bool triggerValue;
                 if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out triggerValue) && triggerValue)
                 {
@@ -51,6 +52,13 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
                 {
                     airBrakes = false;
                 }
+
+                bool menuButton;
+                if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primaryButton, out menuButton) && menuButton)
+                {
+                    m_Aeroplane.Shoot();
+                }
+
             }
             
 

@@ -59,6 +59,14 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
 			}
         }
 
+        public void Shoot(){
+            // throw a rocket in front of the plane
+            var rocket = Instantiate(Resources.Load("Rocket"), transform.position + transform.forward * 10, transform.rotation) as GameObject;
+            rocket.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
+            // Delete the rocket after 5 seconds
+            Destroy(rocket, 5);
+        }
+
 
         public void Move(float rollInput, float pitchInput, float yawInput, float throttleInput, bool airBrakes)
         {
