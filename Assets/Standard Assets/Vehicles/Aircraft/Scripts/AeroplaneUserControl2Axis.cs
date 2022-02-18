@@ -29,9 +29,20 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
         {
             // Read input for the pitch, yaw, roll and throttle of the aeroplane.
             // set roll as the roll axis of the XR controller
-            float yaw = -InputTracking.GetLocalRotation(XRNode.LeftHand).y;
-            float pitch = -InputTracking.GetLocalRotation(XRNode.LeftHand).x;
-            float roll = InputTracking.GetLocalRotation(XRNode.LeftHand).z;
+            // if SystemInfo.deviceModel contains "Oculus" then use the Oculus XR controller
+            float yaw = 0, roll = 0, pitch = 0;
+            // if(SystemInfo.deviceModel != null && SystemInfo.deviceModel.Contains("Oculus"))
+            // {
+            //     yaw = InputTracking.GetLocalRotation(XRNode.LeftHand).y;
+            //     pitch = InputTracking.GetLocalRotation(XRNode.LeftHand).x;
+            //     roll = -InputTracking.GetLocalRotation(XRNode.LeftHand).z;
+            // }
+            // else
+            // {
+                yaw = -InputTracking.GetLocalRotation(XRNode.LeftHand).y;
+                pitch = -InputTracking.GetLocalRotation(XRNode.LeftHand).x;
+                roll = InputTracking.GetLocalRotation(XRNode.LeftHand).z;
+            // }
             // float roll = Input.GetAxisRaw("Horizontal");
             // float pitch = Input.GetAxisRaw("Vertical");
             // bool airBrakes = InputTracking.GetComponent(XRNode.LeftHand).GetPress(triggerButton);
@@ -52,6 +63,7 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
                 {
                     airBrakes = false;
                 }
+
 
                 bool menuButton;
                 if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primaryButton, out menuButton) && menuButton)
