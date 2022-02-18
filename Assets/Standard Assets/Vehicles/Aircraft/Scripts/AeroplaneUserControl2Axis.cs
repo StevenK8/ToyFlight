@@ -31,20 +31,17 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
             // set roll as the roll axis of the XR controller
             // if SystemInfo.deviceModel contains "Oculus" then use the Oculus XR controller
             float yaw = 0, roll = 0, pitch = 0;
-            // if(SystemInfo.deviceModel != null && SystemInfo.deviceModel.Contains("Oculus"))
-            // {
-            //     yaw = InputTracking.GetLocalRotation(XRNode.LeftHand).y;
-            //     pitch = InputTracking.GetLocalRotation(XRNode.LeftHand).x;
-            //     roll = -InputTracking.GetLocalRotation(XRNode.LeftHand).z;
-            // }
-            // else
-            // {
+            if(SystemInfo.deviceModel != null && SystemInfo.deviceModel.Contains("Oculus") ||  SystemInfo.deviceModel.Contains("Pico") ||  SystemInfo.deviceModel.Contains("Valve"))
+            {
                 yaw = -InputTracking.GetLocalRotation(XRNode.LeftHand).y;
                 pitch = -InputTracking.GetLocalRotation(XRNode.LeftHand).x;
                 roll = InputTracking.GetLocalRotation(XRNode.LeftHand).z;
-            // }
-            // float roll = Input.GetAxisRaw("Horizontal");
-            // float pitch = Input.GetAxisRaw("Vertical");
+            }else{
+                // read input from keyboard
+                roll = Input.GetAxisRaw("Horizontal");
+                pitch = Input.GetAxisRaw("Vertical");
+            }
+            // 
             // bool airBrakes = InputTracking.GetComponent(XRNode.LeftHand).GetPress(triggerButton);
 
             bool airBrakes = false;
