@@ -60,7 +60,7 @@ public class MissileShooter : MonoBehaviour
     }
 
     public Rigidbody CreateBall(){
-        GameObject m = Instantiate(missile, avion.transform.position+(new Vector3(0f, -1f, 3f)),avion.transform.rotation);
+        GameObject m = Instantiate(missile, avion.transform.position+(new Vector3(0f, -1f, 3f)),transform.rotation);
 
 
         //m.transform.position = transform.position;
@@ -72,7 +72,7 @@ public class MissileShooter : MonoBehaviour
 
         creationStamp.Add(Time.time);
 
-        return rb;
+        return m.GetComponent<Rigidbody>();
     }
 
     public void OnTriggeredPressed(bool triggerValue){
