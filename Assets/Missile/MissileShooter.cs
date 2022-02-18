@@ -7,11 +7,14 @@ using UnityEngine.XR;
 
 public class MissileShooter : MonoBehaviour
 {
-    public AudioSource sound;
+    public AudioSource soundMissile;
+
+    public AudioSource soundBalle;
     public int impulseFactor = 100;
     public float ballLifeTime = 10f;
 
     public GameObject missile;
+    public GameObject balle;
 
     public GameObject avion;
     private List<float> creationStamp;
@@ -19,6 +22,8 @@ public class MissileShooter : MonoBehaviour
     private bool lastTriggerValue = false;
     private float timer;
     private bool canShoot = true;
+
+    private bool shootMissile = false;
 
     public float inbetweenShootsTime = 2;
     // Start is called before the first frame update
@@ -42,13 +47,25 @@ public class MissileShooter : MonoBehaviour
     }
 
     public void Shoot(){
-        if(canShoot){
+        if(shootMissile){
+            if(canShoot){
+                Rigidbody ball  = CreateBall();
+                Launch(ball);
+                soundMissile.Play();
+                timer = 0;
+            }
+        }
+        else{
             Rigidbody ball  = CreateBall();
             Launch(ball);
-            sound.Play();
-            timer = 0;
+            soundBalle.Play();
         }
         
+        
+    }
+
+    public void changeAmmo(){
+        shootMissile = !shootMissile;
     }
 
     private void Launch(Rigidbody rb){
@@ -60,9 +77,14 @@ public class MissileShooter : MonoBehaviour
     }
 
     public Rigidbody CreateBall(){
-        GameObject m = Instantiate(missile, avion.transform.position+(new Vector3(0f, -1f, 3f)),transform.rotation);
 
-
+        GameObject m;
+        if(shootMissile){
+            m = Instantiate(missile, avion.transform.position+(new Vector3(0f, -1f, 3f)),transform.rotation);
+        }
+        else{
+            m = Instantiate(balle, avion.transform.position+(new Vector3(0f, 0f, 10f)),transform.rotation);
+        }
         //m.transform.position = transform.position;
         m.transform.localScale = new Vector3(0.03f,0.03f,0.03f);
         ballsGameObjects.Add(m);
