@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
-    public GameObject explosion; // drag your explosion prefab here
-
-
-    void OnCollisionEnter(){
-        GameObject expl = Instantiate(explosion, transform.position, Quaternion.identity) as GameObject;
-        Destroy(gameObject); // destroy the grenade
-        Destroy(expl, 3); // delete the explosion after 3 seconds
+    [SerializeField] private GameObject _explosionPrefab;
+    void OnCollisionEnter(Collision collision)
+    {
+        // if collision is with AirCraft Jet object
+        if (collision.gameObject.tag != "AircraftJet (2)")
+        {
+            // instace the prefab at our position and rotation
+            Instantiate(_explosionPrefab, transform.position, transform.rotation);
+            // then destroy the game object that this component is attached to
+            Destroy(gameObject);
+        }
     }
+
     // Start is called before the first frame update
     void Start()
     {
