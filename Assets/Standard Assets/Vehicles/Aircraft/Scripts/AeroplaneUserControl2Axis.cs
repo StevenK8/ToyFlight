@@ -31,6 +31,7 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
             // set roll as the roll axis of the XR controller
             // if SystemInfo.deviceModel contains "Oculus" then use the Oculus XR controller
             float yaw = 0, roll = 0, pitch = 0;
+            bool boost = false;
             if(SystemInfo.deviceModel != null && SystemInfo.deviceModel.Contains("Oculus") ||  SystemInfo.deviceModel.Contains("Pico") ||  SystemInfo.deviceModel.Contains("Valve"))
             {
                 yaw = -InputTracking.GetLocalRotation(XRNode.LeftHand).y;
@@ -40,6 +41,8 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
                 // read input from keyboard
                 roll = Input.GetAxisRaw("Horizontal");
                 pitch = Input.GetAxisRaw("Vertical");
+                // Boost on spacebar press
+                boost = Input.GetKey(KeyCode.Space);
             }
             // 
             // bool airBrakes = InputTracking.GetComponent(XRNode.LeftHand).GetPress(triggerButton);
@@ -70,11 +73,23 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
 
             }
             
+            float throttle = 0;
+            if (airBrakes){
+                throttle = -1;
+            }else{
+                if(boost){
+                    throttle = 1;
+                }else{
+                    throttle = 0.2f;
+                }
+            }
+
+            Debug.Log("throttle: " + throttle);
 
             // auto throttle up, or down if braking.
-            float throttle = airBrakes ? -1 : 1;
+            // float throttle = airBrakes ? -1 : 0.1f;
 #if MOBILE_INPUT
-            AdjustInputForMobileControls(ref roll, ref pitch, ref throttle);
+            // AdjustInputForMobileControls(ref roll, ref pitch, ref throttle);
 #endif
             // Pass the input to the aeroplane
             m_Aeroplane.Move(roll, pitch, yaw, throttle, airBrakes);

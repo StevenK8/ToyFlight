@@ -169,7 +169,7 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
 
             CalculateRollAndPitchAngles();
 
-            AutoLevel();
+            // AutoLevel();
 
             CalculateForwardSpeed();
 
@@ -231,13 +231,13 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
             m_BankedTurnAmount = Mathf.Sin(RollAngle);
 
             // auto level roll, if there's no roll input:
-            if (RollInput == 0f)
+            if (RollInput == 0f && m_AutoRollLevel != 0)
             {
                 RollInput = -RollAngle * m_AutoRollLevel;
             }
 
             // auto correct pitch, if no pitch input (but also apply the banked turn amount)
-            if (PitchInput == 0f)
+            if (PitchInput == 0f && m_AutoPitchLevel != 0)
             {
                 PitchInput = -PitchAngle * m_AutoPitchLevel;
                 PitchInput -=

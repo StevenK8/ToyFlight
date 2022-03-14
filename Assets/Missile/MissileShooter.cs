@@ -23,7 +23,7 @@ public class MissileShooter : MonoBehaviour
     private float timer;
     private bool canShoot = true;
 
-    private bool shootMissile = false;
+    private bool shootMissile = true;
 
     public float inbetweenShootsTime = 2;
     // Start is called before the first frame update
