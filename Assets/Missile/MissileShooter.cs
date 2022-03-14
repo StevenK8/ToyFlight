@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.XR;
+using System.Threading.Tasks;
 
 public class MissileShooter : MonoBehaviour
 {
@@ -74,14 +75,20 @@ public class MissileShooter : MonoBehaviour
         f.x *= impulseFactor;
         f.y *= impulseFactor;
         f.z *= impulseFactor;
+
+        new WaitForSeconds(0.1f);
+
         rb.AddForce(f, ForceMode.Impulse);
+
+       
     }
+
 
     public Rigidbody CreateBall(){
 
         GameObject m;
         if(shootMissile){
-            m = Instantiate(missile, avion.transform.position+(new Vector3(0f, -1f, 3f)),avion.transform.rotation);
+            m = Instantiate(missile, avion.transform.position+(new Vector3(0f, -2f, 3.5f)),avion.transform.rotation);
         }
         else{
             m = Instantiate(balle, avion.transform.position+(new Vector3(0f, 0f, 10f)),avion.transform.rotation);
