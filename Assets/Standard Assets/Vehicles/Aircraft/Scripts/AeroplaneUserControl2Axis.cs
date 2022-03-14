@@ -84,7 +84,7 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
                 }
             }
 
-            Debug.Log("throttle: " + throttle);
+            // Debug.Log("throttle: " + throttle);
 
             // auto throttle up, or down if braking.
             // float throttle = airBrakes ? -1 : 0.1f;
