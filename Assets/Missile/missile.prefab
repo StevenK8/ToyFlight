@@ -4811,6 +4811,7 @@ GameObject:
   m_Component:
   - component: {fileID: 416014}
   - component: {fileID: 13613378}
+  - component: {fileID: 6711939008266287948}
   m_Layer: 0
   m_Name: missile
   m_TagString: Untagged
@@ -4849,6 +4850,19 @@ CapsuleCollider:
   m_Height: 65
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 35}
+--- !u!114 &6711939008266287948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1052c32f144ee54cbf04606587a09a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosion: {fileID: 100010, guid: 031d08f52af1daa4f929b85221519426, type: 3}
 --- !u!1 &155060
 GameObject:
   m_ObjectHideFlags: 0

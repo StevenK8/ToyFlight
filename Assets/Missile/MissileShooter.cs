@@ -26,6 +26,7 @@ public class MissileShooter : MonoBehaviour
     private bool shootMissile = true;
 
     public float inbetweenShootsTime = 2;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,7 +44,7 @@ public class MissileShooter : MonoBehaviour
             }
         }
         timer += Time.deltaTime;
-        canShoot = timer > inbetweenShootsTime;
+        //canShoot = timer > inbetweenShootsTime;
     }
 
     public void Shoot(){
@@ -69,7 +70,7 @@ public class MissileShooter : MonoBehaviour
     }
 
     private void Launch(Rigidbody rb){
-        Vector3 f = transform.forward;
+        Vector3 f = avion.transform.forward;
         f.x *= impulseFactor;
         f.y *= impulseFactor;
         f.z *= impulseFactor;
@@ -80,10 +81,10 @@ public class MissileShooter : MonoBehaviour
 
         GameObject m;
         if(shootMissile){
-            m = Instantiate(missile, avion.transform.position+(new Vector3(0f, -1f, 3f)),transform.rotation);
+            m = Instantiate(missile, avion.transform.position+(new Vector3(0f, -1f, 3f)),avion.transform.rotation);
         }
         else{
-            m = Instantiate(balle, avion.transform.position+(new Vector3(0f, 0f, 10f)),transform.rotation);
+            m = Instantiate(balle, avion.transform.position+(new Vector3(0f, 0f, 10f)),avion.transform.rotation);
         }
         //m.transform.position = transform.position;
         m.transform.localScale = new Vector3(0.03f,0.03f,0.03f);
