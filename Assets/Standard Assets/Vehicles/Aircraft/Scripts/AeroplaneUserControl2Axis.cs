@@ -32,11 +32,15 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
             // if SystemInfo.deviceModel contains "Oculus" then use the Oculus XR controller
             float yaw = 0, roll = 0, pitch = 0;
             bool boost = false;
-            if(SystemInfo.deviceModel != null && SystemInfo.deviceModel.Contains("Oculus") ||  SystemInfo.deviceModel.Contains("Pico") ||  SystemInfo.deviceModel.Contains("Valve"))
+            if(SystemInfo.deviceModel != null &&  SystemInfo.deviceModel.Contains("Pico") ||  SystemInfo.deviceModel.Contains("Valve"))
             {
                 yaw = -InputTracking.GetLocalRotation(XRNode.LeftHand).y;
                 pitch = -InputTracking.GetLocalRotation(XRNode.LeftHand).x;
                 roll = InputTracking.GetLocalRotation(XRNode.LeftHand).z;
+            }else if(SystemInfo.deviceModel != null && SystemInfo.deviceModel.Contains("Oculus") ){
+                yaw = InputTracking.GetLocalRotation(XRNode.LeftHand).y;
+                pitch = InputTracking.GetLocalRotation(XRNode.LeftHand).x;
+                roll = -InputTracking.GetLocalRotation(XRNode.LeftHand).z;
             }else{
                 // read input from keyboard
                 roll = Input.GetAxisRaw("Horizontal");
@@ -55,21 +59,21 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
             {
                 UnityEngine.XR.InputDevice device = leftHandDevices[0];
 
-                bool triggerValue;
-                if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out triggerValue) && triggerValue)
-                {
-                    airBrakes = true;
-                }else
-                {
-                    airBrakes = false;
-                }
+                // bool triggerValue;
+                // if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.menuButton, out triggerValue) && triggerValue)
+                // {
+                //     boost = true;
+                // }else
+                // {
+                //     boost = false;
+                // }
 
 
-                bool menuButton;
-                if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primaryButton, out menuButton) && menuButton)
-                {
-                    m_Aeroplane.Shoot();
-                }
+                // bool menuButton;
+                // if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out menuButton) && menuButton)
+                // {
+                //     m_Aeroplane.Shoot();
+                // }
 
             }
             

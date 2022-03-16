@@ -20,7 +20,7 @@ public class TriggerButtonWatcher : MonoBehaviour
     private void InputDevices_deviceConnected(InputDevice device)
     {
         bool discardedValue;
-        if (device.TryGetFeatureValue(CommonUsages.menuButton, out discardedValue))
+        if (device.TryGetFeatureValue(CommonUsages.triggerButton, out discardedValue))
         {
             devicesWithTriggerButton.Add(device);
         }
@@ -68,7 +68,7 @@ public class TriggerButtonWatcher : MonoBehaviour
         foreach (var device in devicesWithTriggerButton)
         {
             bool primaryButtonState = false;
-            tempState = device.TryGetFeatureValue(CommonUsages.menuButton, out primaryButtonState) && primaryButtonState || tempState;
+            tempState = device.TryGetFeatureValue(CommonUsages.triggerButton, out primaryButtonState) && primaryButtonState || tempState;
         }
 
         if (tempState != lastButtonState)
